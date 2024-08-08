@@ -16,7 +16,7 @@ namespace Client
             client.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(BeginReceiveData), client);
             if (Console.ReadKey().Key == ConsoleKey.Enter)
             {
-                Console.WriteLine("You: ");
+                Console.Write("You: ");
                 string sendText = Console.ReadLine();
                 byte[] sendData = Encoding.ASCII.GetBytes(sendText);
                 client.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, new AsyncCallback(BeginSendData), client);
@@ -42,7 +42,7 @@ namespace Client
             client.EndSend(ar);
             string sendText = Console.ReadLine();
             byte[] sendData = Encoding.ASCII.GetBytes(sendText);
-            Console.WriteLine("You: ");
+            Console.Write("You: ");
             client.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, new AsyncCallback(BeginSendData), client);
         }
 

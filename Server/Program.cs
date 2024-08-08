@@ -7,7 +7,6 @@ namespace Server
     class Program
     {
         private static Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private static Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private static List<Socket> clientList = new List<Socket>();
         private static byte[] buffer = new byte[1024];
         private static string remoteAddress;
@@ -22,14 +21,13 @@ namespace Server
                 {
                     if (Console.ReadKey().Key == ConsoleKey.Enter)
                     {
-                        Console.WriteLine("You: ");
+                        Console.Write("You: ");
                         string sendText = Console.ReadLine();
                         byte[] sendData = Encoding.ASCII.GetBytes(sendText);
                         clientList[i].BeginSend(sendData, 0, sendData.Length, SocketFlags.None, new AsyncCallback(BeginSendData), clientList[i]);
                     }
                 }
             }
-
         }
 
         private static void SetupServer()
@@ -89,7 +87,7 @@ namespace Server
                     client.EndSend(ar);
                     string sendText = Console.ReadLine();
                     byte[] sendData = Encoding.ASCII.GetBytes(sendText);
-                    Console.WriteLine("You: ");
+                    Console.Write("You: ");
                     client.BeginSend(sendData, 0 , sendData.Length, SocketFlags.None, new AsyncCallback(BeginSendData), client);
                     break;
                 }
